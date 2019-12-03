@@ -67,7 +67,7 @@ exports.findPost = (req, res, next) => {
     // console.log(strqrcode + ':test');
     req.getConnection((err, connection) => {
         if (err) return next(err)
-        let sql = `SELECT p.*,SUM(if(l.id is null ,0,1)) AS tcount 
+        let sql = `SELECT p.*,SUM(if(l.id is null ,0,1)) AS tcount
         FROM post p
         LEFT JOIN like_post l on l.post_id = p.id
         GROUP BY p.id desc`;
