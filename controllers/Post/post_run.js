@@ -84,7 +84,7 @@ exports.findLikeuser = (req, res, next) => {
     // console.log(strqrcode + ':test');
     req.getConnection((err, connection) => {
         if (err) return next(err)
-        let sql = `SELECT * FROM like_post WHERE post_id = ? `;
+        let sql = `SELECT * FROM like_post WHERE post_id = ? order by id desc `;
         connection.query(sql, [id], (err, row) => {
             if (err) return next(err)
             res.send(row)
