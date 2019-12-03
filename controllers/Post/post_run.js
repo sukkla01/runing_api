@@ -67,9 +67,8 @@ exports.findPost = (req, res, next) => {
     // console.log(strqrcode + ':test');
     req.getConnection((err, connection) => {
         if (err) return next(err)
-        let sql = `SELECT p.*,SUM(if(l.id is null ,0,1)) AS tcount
+        let sql = `SELECT p.id,p.username,p.topic
         FROM post p
-        LEFT JOIN like_post l on l.post_id = p.id
         GROUP BY p.id desc`;
         connection.query(sql, [id], (err, row) => {
             if (err) return next(err)
@@ -85,6 +84,20 @@ exports.findLikeuser = (req, res, next) => {
     req.getConnection((err, connection) => {
         if (err) return next(err)
         let sql = `SELECT * FROM like_post WHERE post_id = ? order by id desc `;
+        connection.query(sql, [id], (err, row) => {
+            if (err) return next(err)
+            res.send(row)
+        })
+    })
+    
+}
+exports.findLikeCount = (req, res, next) => {
+    // let username = parseInt(req.params.id)
+    let id = req.params.id
+    // console.log(strqrcode + ':test');
+    req.getConnection((err, connection) => {
+        if (err) return next(err)
+        let sql = `SELECT COUNT(id) AS tcount FROM like_post WHERE post_id = ? `;
         connection.query(sql, [id], (err, row) => {
             if (err) return next(err)
             res.send(row)

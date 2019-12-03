@@ -26,6 +26,7 @@ module.exports = function (app) {
     app.get('/post-show/:id',Post.findByImage)
     app.get('/get-like-user/:id',Post.findLikeuser)
     app.get('/get-post',Post.findPost)
+    app.get('/get-like-count/:id',Post.findLikeCount)
     // app.get('/users',requireAuth, users.findAll)
     
 
