@@ -78,6 +78,20 @@ exports.findPost = (req, res, next) => {
     })
     
 }
+exports.findLikeuser = (req, res, next) => {
+    // let username = parseInt(req.params.id)
+    let id = req.params.id
+    // console.log(strqrcode + ':test');
+    req.getConnection((err, connection) => {
+        if (err) return next(err)
+        let sql = `SELECT * FROM like_post WHERE post_id = ? `;
+        connection.query(sql, [id], (err, row) => {
+            if (err) return next(err)
+            res.send(row)
+        })
+    })
+    
+}
 
 
 
