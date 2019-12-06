@@ -53,7 +53,7 @@ exports.findByImage = (req, res, next) => {
     // console.log(strqrcode + ':test');
     req.getConnection((err, connection) => {
         if (err) return next(err)
-        let sql = "SELECT if(image is null ,null,CONVERT(image USING utf8)) AS original,if(image is null ,null,CONVERT(image USING utf8)) AS thumbnail,d_update  FROM post_image WHERE post_id= ? ";
+        let sql = "SELECT if(image is null ,null,CONVERT(image USING utf8)) AS original,if(image is null ,null,CONVERT(image USING utf8)) AS thumbnail  FROM post_image WHERE post_id= ? ";
         connection.query(sql, [id], (err, row) => {
             if (err) return next(err)
             res.send(row)
